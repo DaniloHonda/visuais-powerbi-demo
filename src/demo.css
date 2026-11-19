@@ -1,0 +1,254 @@
+/* Casca da página. Os visuais trazem o próprio CSS, compilado do LESS de cada um. */
+:root {
+  --fundo: #f3f5f8;
+  --carta: #ffffff;
+  --tinta: #1b2130;
+  --fraco: #5d6878;
+  --linha: #dee4ed;
+  --realce: #0f6f76;
+  --realce-leve: #e4f1f1;
+  --sombra: 0 1px 2px rgba(16, 24, 40, .06), 0 6px 16px rgba(16, 24, 40, .05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fundo: #10141c;
+    --carta: #1a202b;
+    --tinta: #e8edf5;
+    --fraco: #98a3b5;
+    --linha: #28303d;
+    --realce: #5fd0d8;
+    --realce-leve: #15323a;
+    --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 6px 20px rgba(0, 0, 0, .35);
+  }
+}
+:root[data-theme="dark"] {
+  --fundo: #10141c;
+  --carta: #1a202b;
+  --tinta: #e8edf5;
+  --fraco: #98a3b5;
+  --linha: #28303d;
+  --realce: #5fd0d8;
+  --realce-leve: #15323a;
+  --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 6px 20px rgba(0, 0, 0, .35);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--fundo);
+  color: var(--tinta);
+  font-family: "Segoe UI", system-ui, Arial, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { margin: 0; line-height: 1.25; }
+button { font: inherit; }
+
+.pv-topo {
+  padding: 26px 24px 18px;
+  border-bottom: 1px solid var(--linha);
+  background: var(--carta);
+}
+.pv-topo__in { max-width: 1240px; margin: 0 auto; }
+.pv-topo h1 { font-size: 1.45rem; letter-spacing: -.01em; }
+.pv-topo p { margin: 6px 0 0; color: var(--fraco); max-width: 70ch; }
+
+.pv-filtro {
+  max-width: 1240px;
+  margin: 14px auto 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--realce-leve);
+  border: 1px solid var(--linha);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: .88rem;
+}
+.pv-filtro[hidden] { display: none; }
+.pv-filtro b { color: var(--realce); }
+.pv-filtro button {
+  margin-left: auto;
+  border: 1px solid var(--linha);
+  background: var(--carta);
+  color: var(--tinta);
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.pv-layout {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px 24px 56px;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.pv-abas {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: sticky;
+  top: 16px;
+}
+.pv-aba {
+  text-align: left;
+  border: 0;
+  background: none;
+  color: var(--fraco);
+  padding: 7px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: .9rem;
+  border-left: 3px solid transparent;
+}
+.pv-aba:hover { background: var(--fundo); color: var(--tinta); }
+.pv-aba[aria-selected="true"] {
+  background: var(--realce-leve);
+  color: var(--realce);
+  border-left-color: var(--realce);
+  font-weight: 600;
+}
+
+.pv-cab { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.pv-cab h2 { font-size: 1.25rem; }
+.pv-cab__r { margin: 4px 0 0; color: var(--fraco); font-size: .92rem; max-width: 72ch; }
+.pv-tag {
+  margin-left: auto;
+  flex: 0 0 auto;
+  background: var(--realce-leve);
+  color: var(--realce);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: .78rem;
+  font-weight: 600;
+}
+
+.pv-corpo { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 20px; align-items: start; }
+.pv-esq { min-width: 0; }
+
+/* A tela do visual imita o fundo claro de um relatório do Power BI. */
+.pv-canvas {
+  background: #ffffff;
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  box-shadow: var(--sombra);
+  padding: 12px;
+  position: relative;
+  color: #1f1f1f;
+  overflow: auto;
+}
+.pv-canvas--livre { overflow: visible; }
+.pv-host { width: 100%; height: 100%; min-height: 60px; }
+.pv-erro { color: #b8433a; font-size: .85rem; padding: 10px; }
+
+.pv-h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--fraco); margin: 18px 0 8px; }
+.pv-esq .pv-h3:first-of-type { margin-top: 20px; }
+.pv-dicas { margin: 0; padding-left: 18px; color: var(--fraco); font-size: .9rem; }
+.pv-dicas li { margin: 3px 0; }
+.pv-nota { margin: 0 0 8px; color: var(--fraco); font-size: .82rem; }
+
+.pv-dir { position: sticky; top: 16px; }
+.pv-dir .pv-h3:first-child { margin-top: 0; }
+.pv-log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--linha);
+  border-radius: 9px;
+  background: var(--carta);
+  max-height: 220px;
+  overflow: auto;
+  font-size: .82rem;
+}
+.pv-log__i, .pv-log__v { padding: 7px 10px; border-bottom: 1px solid var(--linha); display: flex; gap: 8px; }
+.pv-log__i:last-child, .pv-log__v { border-bottom: 0; }
+.pv-log__v { color: var(--fraco); font-style: italic; }
+.pv-log__k {
+  flex: 0 0 auto;
+  color: var(--realce);
+  font-weight: 600;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  padding-top: 2px;
+}
+
+.pv-fmt { border: 1px solid var(--linha); border-radius: 9px; background: var(--carta); overflow: hidden; }
+.pv-card { border-bottom: 1px solid var(--linha); }
+.pv-card:last-child { border-bottom: 0; }
+.pv-card__t { padding: 8px 10px; cursor: pointer; font-size: .85rem; font-weight: 600; }
+.pv-card[open] .pv-card__t { border-bottom: 1px solid var(--linha); }
+.pv-campo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: .8rem;
+  color: var(--fraco);
+}
+.pv-campo__t { flex: 1; min-width: 0; }
+.pv-campo input[type="color"] { width: 30px; height: 24px; padding: 0; border: 1px solid var(--linha); border-radius: 4px; background: none; cursor: pointer; }
+.pv-campo__n, .pv-campo__x, .pv-campo__s {
+  width: 108px;
+  flex: 0 0 auto;
+  border: 1px solid var(--linha);
+  border-radius: 5px;
+  padding: 3px 6px;
+  background: var(--fundo);
+  color: var(--tinta);
+  font: inherit;
+  font-size: .8rem;
+}
+.pv-acoes { margin-top: 10px; }
+.pv-btn {
+  border: 1px solid var(--linha);
+  background: var(--carta);
+  color: var(--tinta);
+  border-radius: 7px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: .85rem;
+}
+.pv-btn:hover { border-color: var(--realce); color: var(--realce); }
+
+/* Janela modal que o visual de segmentação abre pelo host. */
+.pv-modal {
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 24, 40, .18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 40;
+  border-radius: 10px;
+}
+.pv-modal__box { background: #fff; border-radius: 10px; box-shadow: 0 12px 32px rgba(0, 0, 0, .22); overflow: hidden; color: #1f1f1f; }
+.pv-modal__body { overflow: auto; padding: 10px; }
+.pv-modal__foot { display: flex; justify-content: flex-end; gap: 8px; padding: 8px 10px; border-top: 1px solid #ececec; }
+.pv-modal__btn { border: 1px solid #d6dbe2; background: #fff; border-radius: 6px; padding: 5px 14px; cursor: pointer; font-size: .85rem; }
+.pv-modal__btn--on { background: #0f6f76; border-color: #0f6f76; color: #fff; }
+
+.pv-rodape {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+  color: var(--fraco);
+  font-size: .82rem;
+}
+
+@media (max-width: 1040px) {
+  .pv-corpo { grid-template-columns: minmax(0, 1fr); }
+  .pv-dir { position: static; }
+}
+@media (max-width: 760px) {
+  .pv-layout { grid-template-columns: minmax(0, 1fr); padding: 16px; gap: 16px; }
+  .pv-abas { flex-direction: row; overflow-x: auto; position: static; padding-bottom: 4px; }
+  .pv-aba { white-space: nowrap; border-left: 0; border-bottom: 3px solid transparent; border-radius: 7px 7px 0 0; }
+  .pv-aba[aria-selected="true"] { border-left: 0; border-bottom-color: var(--realce); }
+  .pv-topo { padding: 18px 16px 14px; }
+  .pv-rodape { padding: 0 16px 32px; }
+}

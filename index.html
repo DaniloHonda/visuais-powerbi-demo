@@ -1,306 +1,39 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Demonstração · Visuais para Power BI</title>
-  <style>
-    :root {
-      --bg: #f4f6f9;
-      --card: #ffffff;
-      --ink: #1d2433;
-      --muted: #5f6b7d;
-      --line: #dde3ec;
-      --accent: #2b59c3;
-      --accent-soft: #e5ecfa;
-      --ok: #2e9e6a;
-      --warn: #e0a030;
-      --bad: #d9534f;
-      --mock-bg: #fbfcfe;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --bg: #131722; --card: #1b2130; --ink: #e9edf5; --muted: #9aa5b8;
-        --line: #2c3547; --accent: #8fb0ff; --accent-soft: #22304f; --mock-bg: #161c2a;
-      }
-    }
-    :root[data-theme="dark"] {
-      --bg: #131722; --card: #1b2130; --ink: #e9edf5; --muted: #9aa5b8;
-      --line: #2c3547; --accent: #8fb0ff; --accent-soft: #22304f; --mock-bg: #161c2a;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Segoe UI", Arial, sans-serif; line-height: 1.5; }
-    header { padding: 24px 16px 8px; max-width: 1100px; margin: 0 auto; }
-    h1 { font-size: 1.6rem; margin: 0 0 4px; }
-    header p { margin: 0; color: var(--muted); }
-    .tabs { max-width: 1100px; margin: 16px auto 0; padding: 0 16px; display: flex; gap: 6px; overflow-x: auto; border-bottom: 1px solid var(--line); }
-    .tab { flex: 0 0 auto; border: 0; background: none; color: var(--muted); font: inherit; font-size: 0.92rem; padding: 10px 12px; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; }
-    .tab[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
-    .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-    main { max-width: 1100px; margin: 0 auto; padding: 20px 16px 48px; }
-    .panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
-    .panel[hidden] { display: none; }
-    .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
-    .badge { background: var(--accent-soft); color: var(--accent); font-size: 0.8rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
-    .panel h2 { margin: 0 0 6px; font-size: 1.3rem; }
-    .use { margin: 0 0 16px; color: var(--muted); }
-    .mock { border: 1px solid var(--line); border-radius: 10px; background: var(--mock-bg); padding: 16px; overflow-x: auto; }
-    .mock table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    .mock th { text-align: left; color: var(--muted); font-weight: 600; font-size: 0.78rem; border-bottom: 1px solid var(--line); padding: 6px; }
-    .mock td { padding: 7px 6px; border-bottom: 1px solid var(--line); }
-    .grid { display: grid; gap: 12px; }
-    .kpis { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
-    .kpi { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--card); }
-    .kpi .n { font-size: 1.7rem; font-weight: 700; }
-    .kpi .l { color: var(--muted); font-size: 0.8rem; }
-    .kpi .d { font-size: 0.8rem; margin-top: 4px; }
-    .track { height: 10px; background: var(--line); border-radius: 6px; overflow: hidden; display: flex; }
-    .seg { height: 100%; }
-    .row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
-    .row .lab { width: 150px; flex: 0 0 auto; font-size: 0.85rem; }
-    .row .bar { flex: 1; }
-    .row .val { width: 110px; text-align: right; font-size: 0.82rem; color: var(--muted); flex: 0 0 auto; }
-    .pill { display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; color: #fff; }
-    .input { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--card); font-size: 0.9rem; display: flex; justify-content: space-between; }
-    .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 10px; max-width: 280px; font-size: 0.8rem; text-align: center; }
-    .cal div { padding: 5px 0; border-radius: 6px; }
-    .cal .in { background: var(--accent-soft); color: var(--accent); }
-    .cal .end { background: var(--accent); color: #fff; }
-    .heat { display: grid; gap: 3px; font-size: 0.75rem; text-align: center; }
-    .heat div { padding: 8px 2px; border-radius: 4px; color: #fff; }
-    .heat .h { background: transparent; color: var(--muted); font-weight: 600; }
-    .lnk { color: var(--accent); }
-    .box { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; background: var(--card); display: inline-block; margin: 4px; font-size: 0.85rem; }
-    .sub { margin-left: 24px; border-left: 2px solid var(--line); padding-left: 12px; }
-    .tabsmini { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
-    .tabsmini span { border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; font-size: 0.82rem; }
-    .tabsmini span.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
-    .install { margin-top: 14px; font-size: 0.9rem; color: var(--muted); }
-    code { background: var(--bg); border: 1px solid var(--line); padding: 1px 6px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; font-size: 0.85em; word-break: break-all; }
-    .note { font-size: 0.78rem; color: var(--muted); margin-top: 8px; }
-    footer { max-width: 1100px; margin: 0 auto; padding: 0 16px 32px; color: var(--muted); font-size: 0.85rem; }
-    @media (max-width: 600px) { .row .lab { width: 100px; } .row .val { width: 80px; } .panel { padding: 16px; } }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visuais para Power BI</title>
+<meta name="description" content="Demonstração interativa de uma biblioteca de visuais personalizados para Power BI.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%230f6f76'/><rect x='3' y='8' width='2.5' height='5' fill='white'/><rect x='6.8' y='5' width='2.5' height='8' fill='white'/><rect x='10.6' y='3' width='2.5' height='10' fill='white'/></svg>">
+<link rel="stylesheet" href="assets/demo.css">
 </head>
 <body>
-  <header>
-    <h1>Visuais para Power BI</h1>
-    <p>Demonstração da biblioteca. Escolha um visual nas abas para ver como ele aparece e o que ele faz.</p>
+  <header class="pv-topo">
+    <div class="pv-topo__in">
+      <h1>Visuais para Power BI</h1>
+      <p>
+        Biblioteca de visuais personalizados escritos em TypeScript. Os visuais desta página são
+        os mesmos que viram arquivos <code>.pbiviz</code>: o código roda aqui no navegador, sobre
+        uma base fictícia, e você pode clicar, filtrar, ordenar, buscar e exportar como faria num relatório.
+      </p>
+      <div class="pv-filtro" id="filtro" hidden>
+        <b>Filtro ativo</b>
+        <span id="filtro-texto"></span>
+        <button type="button" id="filtro-limpar">Limpar filtro</button>
+      </div>
+    </div>
   </header>
 
-  <nav class="tabs" role="tablist" id="tabs" aria-label="Visuais"></nav>
-  <main id="panels"></main>
+  <div class="pv-layout">
+    <nav class="pv-abas" id="abas" role="tablist" aria-label="Visuais"></nav>
+    <main id="painel"></main>
+  </div>
 
-  <footer>
-    Todos os nomes, números e etapas são fictícios. Os pacotes .pbiviz são importados no Power BI Desktop.
+  <footer class="pv-rodape">
+    Pessoas, vagas, datas e números são inventados para a demonstração. Nenhum dado real.
   </footer>
 
-  <script>
-    // Dados fictícios: nenhuma informação real.
-    const ETAPAS = ["Triagem", "Entrevista 1", "Entrevista 2", "Avaliação", "Proposta"];
-    const ENTRADAS = [820, 510, 330, 210, 140];
-    const APROVADOS = [610, 380, 240, 165, 118];
-    const REJEITADOS = [140, 90, 60, 30, 14];
-    const ANDAMENTO = [70, 40, 30, 15, 8];
-    const CORES = { ok: "var(--ok)", bad: "var(--bad)", wait: "var(--warn)", ac: "var(--accent)" };
-    const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0) + "%";
-    const nomes = ["Candidato A", "Candidato B", "Candidato C", "Candidato D", "Candidato E", "Candidato F", "Candidato G", "Candidato H"];
-
-    function kpi() {
-      const itens = [["Aplicações", "1.240", "▲ 8% vs. anterior", "ok"], ["Contratações", "42", "▲ 3 vs. anterior", "ok"], ["Em andamento", "163", "▼ 12 vs. anterior", "bad"], ["Tempo mediano", "38 dias", "meta 45 dias", "ac"]];
-      return `<div class="grid kpis">${itens.map(([l, n, d, c]) => `<div class="kpi"><div class="l">${l}</div><div class="n">${n}</div><div class="d" style="color:${CORES[c]}">${d}</div></div>`).join("")}</div>`;
-    }
-    function funil() {
-      return ETAPAS.map((e, i) => {
-        const w = Math.round((ENTRADAS[i] / ENTRADAS[0]) * 100);
-        const anterior = i ? pct(ENTRADAS[i], ENTRADAS[i - 1]) : "100%";
-        return `<div class="row"><div class="lab">${e}</div><div class="bar"><div class="track"><div class="seg" style="width:${w}%;background:var(--accent)"></div></div></div><div class="val">${ENTRADAS[i]} · ${pct(ENTRADAS[i], ENTRADAS[0])} · ${anterior}</div></div>`;
-      }).join("");
-    }
-    function barrasComposicao() {
-      const linhas = [["Triagem", 610, 140, 70], ["Entrevista 1", 380, 90, 40], ["Entrevista 2", 240, 60, 30], ["Avaliação", 165, 30, 15], ["Proposta", 118, 14, 8]];
-      return linhas.map(([l, a, r, p]) => {
-        const t = a + r + p;
-        return `<div class="row"><div class="lab">${l}</div><div class="bar"><div class="track">
-          <div class="seg" style="width:${(a / t) * 100}%;background:var(--ok)"></div>
-          <div class="seg" style="width:${(r / t) * 100}%;background:var(--bad)"></div>
-          <div class="seg" style="width:${(p / t) * 100}%;background:var(--warn)"></div></div></div>
-          <div class="val">${t} aplic.</div></div>`;
-      }).join("") + `<div class="note">Verde: aprovados · Vermelho: rejeitados · Amarelo: em andamento</div>`;
-    }
-    function destaques() {
-      const itens = [["42", "Contratações no período", "ok", "Sobe"], ["17", "Paradas há mais de 45 dias", "bad", "Atenção"], ["163", "Em andamento", "wait", "Acompanhar"]];
-      return itens.map(([n, l, c, s]) => `<div class="row" style="border-left:4px solid ${CORES[c]};padding:8px 12px;background:var(--card);border-radius:6px"><div style="font-size:1.6rem;font-weight:700;width:90px">${n}</div><div style="flex:1">${l}</div><span class="pill" style="background:${CORES[c]}">${s}</span></div>`).join("");
-    }
-    function consumoMeta() {
-      const meta = 45, valor = 38;
-      const itens = [["Triagem", 6], ["Entrevista 1", 9], ["Entrevista 2", 12], ["Avaliação", 7], ["Proposta", 4]];
-      return `<div class="row"><div class="lab"><b>Total</b></div><div class="bar"><div class="track" style="position:relative"><div class="seg" style="width:${(valor / meta) * 100}%;background:var(--ac, var(--accent))"></div></div></div><div class="val">${valor} de ${meta} dias</div></div>` +
-        itens.map(([l, d]) => `<div class="row"><div class="lab">${l}</div><div class="bar"><div class="track"><div class="seg" style="width:${(d / meta) * 100}%;background:var(--accent)"></div></div></div><div class="val">${d} dias</div></div>`).join("");
-    }
-    function segmentacao() {
-      const opcoes = ["Todos", "Área A", "Área B", "Área C", "Área D"];
-      return `<div class="input" style="max-width:320px"><span>Área A, Área B ▾</span><span>▾</span></div>` +
-        `<div style="margin-top:10px;max-width:320px;border:1px solid var(--line);border-radius:8px;background:var(--card);padding:6px">` +
-        opcoes.map((o, i) => `<div style="padding:6px 8px">${i === 1 || i === 2 ? "☑" : "☐"} ${o}</div>`).join("") + `</div>`;
-    }
-    function periodo() {
-      let dias = "";
-      for (let d = 1; d <= 30; d++) {
-        const cls = d === 1 ? "end" : d >= 5 && d <= 22 ? "in" : "";
-        dias += `<div class="${cls}">${d}</div>`;
-      }
-      return `<div class="input" style="max-width:320px"><span>01/09/2026 – 22/09/2026</span><span>📅</span></div>` +
-        `<div class="cal">${["D", "S", "T", "Q", "Q", "S", "S"].map(x => `<div style="color:var(--muted)">${x}</div>`).join("")}${dias}</div>`;
-    }
-    function evolucao() {
-      const a = [40, 46, 52, 48, 60, 66, 58, 70, 74, 69, 80, 85];
-      const b = [30, 33, 31, 38, 36, 44, 47, 45, 52, 55, 53, 60];
-      const p = (arr) => arr.map((v, i) => `${(i * 300) / (arr.length - 1)},${120 - v}`).join(" ");
-      return `<svg viewBox="0 0 300 130" style="width:100%;max-height:220px">
-        <polyline points="${p(a)}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
-        <polyline points="${p(b)}" fill="none" stroke="var(--warn)" stroke-width="2.5"/>
-        <polyline points="${p(a.slice(9))}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="4 4" style="transform:translate(0,0)"/>
-        <line x1="0" y1="120" x2="300" y2="120" stroke="var(--line)"/></svg>
-        <div class="note">Azul: aplicações · Amarelo: contratações · Trecho tracejado: período parcial</div>`;
-    }
-    function tabelaEtapas() {
-      return `<table><tr><th>Etapa</th><th>Entradas</th><th>Aprovados</th><th>Rejeitados</th><th>Conversão</th><th>Em andamento</th></tr>` +
-        ETAPAS.map((e, i) => `<tr><td>${e}</td><td>${ENTRADAS[i]}</td><td>${APROVADOS[i]}</td><td>${REJEITADOS[i]}</td><td>${pct(APROVADOS[i], APROVADOS[i] + REJEITADOS[i])}</td><td>${ANDAMENTO[i]}</td></tr>`).join("") + `</table>`;
-    }
-    function matriz() {
-      const cols = ["Triagem", "Entrevista 1", "Entrevista 2", "Avaliação", "Proposta"];
-      const linhas = ["Vaga A", "Vaga B", "Vaga C", "Vaga D", "Vaga E"];
-      const valores = [[12, 8, 5, 3, 1], [9, 14, 6, 2, 0], [4, 7, 10, 4, 2], [15, 6, 3, 6, 1], [3, 5, 8, 9, 4]];
-      const cor = (v) => ["#e5ecfa", "#b7c9ee", "#7ea2e0", "#4f7fd2", "#2b59c3"][Math.min(4, Math.floor(v / 4))];
-      return `<div class="heat" style="grid-template-columns: 90px repeat(${cols.length}, 1fr)">
-        <div class="h"></div>${cols.map(c => `<div class="h">${c}</div>`).join("")}
-        ${linhas.map((l, r) => `<div class="h" style="text-align:left">${l}</div>` + valores[r].map(v => `<div style="background:${cor(v)};color:${v >= 4 ? "#fff" : "var(--ink)"}">${v}</div>`).join("")).join("")}
-      </div>`;
-    }
-    function tabelaSla() {
-      return `<table><tr><th>Etapa</th><th>Típico (mediana)</th><th>90% saem até</th><th>Base</th><th>Acima hoje</th></tr>` +
-        [["Triagem", 3, 8, 610, 4], ["Entrevista 1", 6, 14, 380, 7], ["Entrevista 2", 9, 21, 240, 3], ["Avaliação", 5, 12, 165, 2], ["Proposta", 2, 6, 118, 1]]
-          .map(r => `<tr><td>${r[0]}</td><td>${r[1]} dias</td><td>${r[2]} dias</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join("") + `</table>`;
-    }
-    function etapaMotivos() {
-      const motivos = [["Perfil técnico abaixo", 48], ["Pretensão salarial", 31], ["Sem retorno do candidato", 22], ["Vaga preenchida", 14]];
-      return `<div style="display:grid;grid-template-columns:1fr 1.4fr;gap:12px">
-        <div>${ETAPAS.map((e, i) => `<div class="box" style="display:block;${i === 1 ? "border-color:var(--accent)" : ""}">${e}</div>`).join("")}</div>
-        <div><div style="font-size:0.82rem;color:var(--muted);margin-bottom:6px">Motivos de saída · Entrevista 1</div>
-        ${motivos.map(([m, n]) => `<div class="row"><div class="lab" style="width:190px">${m}</div><div class="bar"><div class="track"><div class="seg" style="width:${(n / 48) * 100}%;background:var(--accent)"></div></div></div><div class="val">${n}</div></div>`).join("")}</div></div>`;
-    }
-    function tabelaNominal() {
-      return `<table><tr><th>Link</th><th>Candidato</th><th>Vaga</th><th>Etapa</th><th>Situação</th><th>Dias</th></tr>` +
-        nomes.map((n, i) => `<tr><td><span class="lnk">Abrir ↗</span></td><td>${n}</td><td>Vaga ${"ABCDE"[i % 5]}</td><td>${ETAPAS[i % 5]}</td><td><span class="pill" style="background:${i % 3 === 0 ? CORES.wait : i % 3 === 1 ? CORES.ok : CORES.bad}">${i % 3 === 0 ? "Em andamento" : i % 3 === 1 ? "Aprovado" : "Rejeitado"}</span></td><td>${(i * 7) % 30}</td></tr>`).join("") + `</table>`;
-    }
-    function baseNominal() {
-      const bases = [["Aplicações", "1.240"], ["Em andamento", "163"], ["Contratadas", "42"], ["Rejeitadas", "1.035"]];
-      return `<div class="grid kpis" style="grid-template-columns:repeat(4,1fr)">${bases.map(([l, n], i) => `<div class="kpi" style="${i === 1 ? "border-color:var(--accent)" : ""}"><div class="l">${l}</div><div class="n" style="font-size:1.3rem">${n}</div></div>`).join("")}</div>` +
-        `<div style="margin-top:12px">` + nomes.slice(0, 5).map((n, i) => `<div class="row"><div class="lab" style="width:130px">${n}</div><div class="bar"><div class="track"><div class="seg" style="width:${20 + i * 15}%;background:var(--accent)"></div></div></div><div class="val">${ETAPAS[i]}</div></div>`).join("") + `</div>`;
-    }
-    function organograma() {
-      return `<div><span class="box">Diretoria A</span>
-        <div class="sub"><span class="box">Área 1</span><div class="sub"><span class="box">Time 1.1</span> <span class="box">Time 1.2</span></div></div>
-        <div class="sub"><span class="box">Área 2</span><div class="sub"><span class="box">Time 2.1</span></div></div></div>`;
-    }
-    function detalhe() {
-      return `<div class="tabsmini"><span class="on">Todas (30)</span><span>Rejeitadas (9)</span><span>Em andamento (12)</span></div>` +
-        `<table><tr><th>Link</th><th>Candidato</th><th>Vaga</th><th>Etapa</th><th>Motivo</th><th>Dias na etapa</th></tr>` +
-        nomes.slice(0, 6).map((n, i) => `<tr><td><span class="lnk">Abrir ↗</span></td><td>${n}</td><td>Vaga ${"ABCDE"[i % 5]}</td><td>${ETAPAS[i % 5]}</td><td>${i % 2 ? "Perfil abaixo" : "—"}</td><td>${(i * 5) % 21}</td></tr>`).join("") + `</table>`;
-    }
-    function destaquesSla() { return tabelaSla(); }
-
-    const VISUAIS = [
-      { nome: "Card de KPI", versao: "v1.2.1", pacote: "Card de KPI 1.2.1.pbiviz",
-        uso: "Big numbers com comparação, acumulado, meta e selo de período.", mock: kpi },
-      { nome: "Funil", versao: "v1.2.0", pacote: "Funil 1.2.0.pbiviz",
-        uso: "Etapas com número, % do total e % da etapa anterior.", mock: funil },
-      { nome: "Barras com composição", versao: "v1.1.0", pacote: "Barras com composicao 1.1.0.pbiviz",
-        uso: "Barras empilhadas por linha, com busca, ordem, indicador, resumo, parte em destaque e ranking (Pareto).", mock: barrasComposicao },
-      { nome: "Lista de destaques", versao: "v1.0.0", pacote: "Lista de destaques 1.0.0.pbiviz",
-        uso: "Faixas com número grande e cor por status, vindas de medidas de texto.", mock: destaques },
-      { nome: "Consumo da meta", versao: "v1.1.0", pacote: "Consumo da meta 1.1.0.pbiviz",
-        uso: "Régua do total contra a meta, repartida por item, com lista.", mock: consumoMeta },
-      { nome: "Segmentação", versao: "v2.2.0", pacote: "Segmentacao 2.2.0.pbiviz",
-        uso: "Caixa com lista suspensa (padrão), janela de seleção ou lista aberta; busca, contagem, todos e limpar.", mock: segmentacao },
-      { nome: "Período", versao: "v2.2.0", pacote: "Periodo 2.2.0.pbiviz",
-        uso: "Caixa com calendário suspenso: atalhos (mês, trimestre atual e anterior), De/Até digitável, intervalo em dois cliques, datas futuras e limpar.", mock: periodo },
-      { nome: "Evolução", versao: "v1.0.0", pacote: "Evolucao 1.0.0.pbiviz",
-        uso: "Linhas no tempo com troca de série e granularidade, período parcial e datas futuras tracejadas.", mock: evolucao },
-      { nome: "Tabela por etapa", versao: "v1.1.0", pacote: "Tabela por etapa 1.1.0.pbiviz",
-        uso: "Tabela por linha (etapa, recrutador…) com composição, conversão, SLA, busca, ordenação, total e modo compacto.", mock: tabelaEtapas },
-      { nome: "Matriz de calor", versao: "v1.2.0", pacote: "Matriz de calor 1.2.0.pbiviz",
-        uso: "Matriz linhas × colunas com cor por volume, coluna de alerta, % da linha, taxa vs. média e detalhe da coluna.", mock: matriz },
-      { nome: "Tabela de SLA", versao: "v1.0.0", pacote: "Tabela de SLA 1.0.0.pbiviz",
-        uso: "Típico (mediana) e 90% saem até (P90) por etapa, base e casos acima hoje.", mock: tabelaSla },
-      { nome: "Etapa e motivos", versao: "v1.0.0", pacote: "Etapa e motivos 1.0.0.pbiviz",
-        uso: "Lista à esquerda; ao escolher, os itens mais frequentes à direita (top N, destaque por prefixo).", mock: etapaMotivos },
-      { nome: "Tabela nominal", versao: "v1.1.0", pacote: "Tabela nominal 1.1.0.pbiviz",
-        uso: "Lista nominal com link, até 30 colunas, situação, dias com alerta, busca, botões por segmento, contadores, \"Mostrar mais\" e exportar CSV.", mock: tabelaNominal },
-      { nome: "Base nominal", versao: "v1.1.0", pacote: "Base nominal 1.1.0.pbiviz",
-        uso: "Big numbers clicáveis que trocam a base da lista, colunas por base, linha do tempo por aplicação e exportação.", mock: baseNominal },
-      { nome: "Organograma", versao: "v1.0.0", pacote: "Organograma 1.0.0.pbiviz",
-        uso: "Segmentação em árvore por níveis (N2, N3, N4…), com busca em qualquer nível e contagem.", mock: organograma },
-      { nome: "Detalhe nominal", versao: "v1.0.1", pacote: "Detalhe nominal 1.0.1.pbiviz",
-        uso: "Drillthrough: ao clicar em um número, abre a lista de aplicações com abas, busca e exportação CSV.", mock: detalhe }
-    ];
-
-    const tabs = document.getElementById("tabs");
-    const panels = document.getElementById("panels");
-
-    function el(tag, attrs = {}, texto) {
-      const node = document.createElement(tag);
-      Object.entries(attrs).forEach(([k, v]) => node.setAttribute(k, v));
-      if (texto !== undefined) node.textContent = texto;
-      return node;
-    }
-
-    VISUAIS.forEach((v, i) => {
-      const id = "visual-" + i;
-      tabs.appendChild(el("button", { class: "tab", role: "tab", id: "tab-" + i, "aria-selected": i === 0 ? "true" : "false", "aria-controls": id, type: "button" }, v.nome));
-
-      const panel = el("section", { class: "panel", role: "tabpanel", id: id, "aria-labelledby": "tab-" + i, tabindex: "0" });
-      if (i !== 0) panel.hidden = true;
-
-      const meta = el("div", { class: "meta" });
-      meta.appendChild(el("span", { class: "badge" }, v.versao));
-      panel.appendChild(meta);
-      panel.appendChild(el("h2", {}, v.nome));
-      panel.appendChild(el("p", { class: "use" }, v.uso));
-
-      const mock = el("div", { class: "mock" });
-      mock.innerHTML = v.mock();
-      panel.appendChild(mock);
-
-      const install = el("p", { class: "install" });
-      install.append("Pacote para importar no Power BI: ");
-      install.appendChild(el("code", {}, v.pacote));
-      panel.appendChild(install);
-      panels.appendChild(panel);
-    });
-
-    function selecionar(indice) {
-      document.querySelectorAll(".tab").forEach((t, i) => {
-        const ativo = i === indice;
-        t.setAttribute("aria-selected", ativo ? "true" : "false");
-        t.tabIndex = ativo ? 0 : -1;
-      });
-      document.querySelectorAll(".panel").forEach((p, i) => { p.hidden = i !== indice; });
-    }
-
-    tabs.addEventListener("click", (e) => {
-      const t = e.target.closest(".tab");
-      if (t) selecionar([...tabs.children].indexOf(t));
-    });
-
-    tabs.addEventListener("keydown", (e) => {
-      const atual = [...tabs.children].findIndex(t => t.getAttribute("aria-selected") === "true");
-      let novo = null;
-      if (e.key === "ArrowRight") novo = (atual + 1) % VISUAIS.length;
-      if (e.key === "ArrowLeft") novo = (atual - 1 + VISUAIS.length) % VISUAIS.length;
-      if (novo !== null) { selecionar(novo); tabs.children[novo].focus(); }
-    });
-  </script>
+  <script src="assets/demo.js"></script>
 </body>
 </html>
