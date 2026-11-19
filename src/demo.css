@@ -45,17 +45,17 @@ h1, h2, h3 { margin: 0; line-height: 1.25; }
 button { font: inherit; }
 
 .pv-topo {
-  padding: 26px 24px 18px;
+  padding: 18px 28px 14px;
   border-bottom: 1px solid var(--linha);
   background: var(--carta);
 }
-.pv-topo__in { max-width: 1240px; margin: 0 auto; }
-.pv-topo h1 { font-size: 1.45rem; letter-spacing: -.01em; }
-.pv-topo p { margin: 6px 0 0; color: var(--fraco); max-width: 70ch; }
+.pv-topo__in { max-width: 1500px; margin: 0 auto; }
+.pv-topo h1 { font-size: 1.3rem; letter-spacing: -.01em; }
+.pv-topo p { margin: 5px 0 0; color: var(--fraco); max-width: 95ch; font-size: .9rem; }
 
 .pv-filtro {
-  max-width: 1240px;
-  margin: 14px auto 0;
+  max-width: 1500px;
+  margin: 12px auto 0;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -78,12 +78,12 @@ button { font: inherit; }
 }
 
 .pv-layout {
-  max-width: 1240px;
+  max-width: 1500px;
   margin: 0 auto;
-  padding: 20px 24px 56px;
+  padding: 16px 28px 56px;
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: 24px;
+  grid-template-columns: 182px minmax(0, 1fr);
+  gap: 22px;
   align-items: start;
 }
 
@@ -113,8 +113,8 @@ button { font: inherit; }
   font-weight: 600;
 }
 
-.pv-cab { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
-.pv-cab h2 { font-size: 1.25rem; }
+.pv-cab { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.pv-cab h2 { font-size: 1.35rem; }
 .pv-cab__r { margin: 4px 0 0; color: var(--fraco); font-size: .92rem; max-width: 72ch; }
 .pv-tag {
   margin-left: auto;
@@ -127,16 +127,17 @@ button { font: inherit; }
   font-weight: 600;
 }
 
-.pv-corpo { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 20px; align-items: start; }
+/* Abaixo do visual: o que experimentar, o registro e o painel de formatação. */
+.pv-sob { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: start; margin-top: 18px; }
 .pv-esq { min-width: 0; }
 
 /* A tela do visual imita o fundo claro de um relatório do Power BI. */
 .pv-canvas {
   background: #ffffff;
   border: 1px solid var(--linha);
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: var(--sombra);
-  padding: 12px;
+  padding: 18px 20px;
   position: relative;
   color: #1f1f1f;
   overflow: auto;
@@ -146,13 +147,12 @@ button { font: inherit; }
 .pv-erro { color: #b8433a; font-size: .85rem; padding: 10px; }
 
 .pv-h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--fraco); margin: 18px 0 8px; }
-.pv-esq .pv-h3:first-of-type { margin-top: 20px; }
+.pv-esq .pv-h3:first-child, .pv-dir .pv-h3:first-child { margin-top: 0; }
 .pv-dicas { margin: 0; padding-left: 18px; color: var(--fraco); font-size: .9rem; }
 .pv-dicas li { margin: 3px 0; }
 .pv-nota { margin: 0 0 8px; color: var(--fraco); font-size: .82rem; }
 
-.pv-dir { position: sticky; top: 16px; }
-.pv-dir .pv-h3:first-child { margin-top: 0; }
+.pv-dir { min-width: 0; }
 .pv-log {
   list-style: none;
   margin: 0;
@@ -160,7 +160,7 @@ button { font: inherit; }
   border: 1px solid var(--linha);
   border-radius: 9px;
   background: var(--carta);
-  max-height: 220px;
+  max-height: 200px;
   overflow: auto;
   font-size: .82rem;
 }
@@ -233,22 +233,22 @@ button { font: inherit; }
 .pv-modal__btn--on { background: #0f6f76; border-color: #0f6f76; color: #fff; }
 
 .pv-rodape {
-  max-width: 1240px;
+  max-width: 1500px;
   margin: 0 auto;
-  padding: 0 24px 40px;
+  padding: 0 28px 40px;
   color: var(--fraco);
   font-size: .82rem;
 }
 
 @media (max-width: 1040px) {
-  .pv-corpo { grid-template-columns: minmax(0, 1fr); }
-  .pv-dir { position: static; }
+  .pv-sob { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 760px) {
-  .pv-layout { grid-template-columns: minmax(0, 1fr); padding: 16px; gap: 16px; }
+  .pv-layout { grid-template-columns: minmax(0, 1fr); padding: 14px; gap: 14px; }
+  .pv-canvas { padding: 12px; }
   .pv-abas { flex-direction: row; overflow-x: auto; position: static; padding-bottom: 4px; }
   .pv-aba { white-space: nowrap; border-left: 0; border-bottom: 3px solid transparent; border-radius: 7px 7px 0 0; }
   .pv-aba[aria-selected="true"] { border-left: 0; border-bottom-color: var(--realce); }
-  .pv-topo { padding: 18px 16px 14px; }
-  .pv-rodape { padding: 0 16px 32px; }
+  .pv-topo { padding: 16px 14px 12px; }
+  .pv-rodape { padding: 0 14px 32px; }
 }

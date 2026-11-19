@@ -8,52 +8,52 @@ import { SlicerDialog } from "../.src/xpSlicer/src/dialog";
 
 const CATALOGO = [
   {
-    key: "xpKpiCard", nome: "Card de KPI", versao: "1.2.1", altura: 190,
+    key: "xpKpiCard", nome: "Card de KPI", versao: "1.2.1", altura: 150,
     resumo: "Número grande com comparação de período, acumulado do ano e meta.",
     tente: ["Passe o olho na comparação: a seta muda de cor conforme sobe ou desce", "Abra o painel de formatação e troque a cor ou ligue o acumulado"]
   },
   {
-    key: "xpHighlights", nome: "Lista de destaques", versao: "1.0.0", altura: 260,
+    key: "xpHighlights", nome: "Lista de destaques", versao: "1.0.0", altura: 190,
     resumo: "Faixas com número grande e cor por status, alimentadas por medidas de texto.",
     tente: ["No painel de formatação, desligue \"ordenar por gravidade\" e veja a ordem mudar"]
   },
   {
-    key: "xpFunnel", nome: "Funil", versao: "1.2.0", altura: 340,
+    key: "xpFunnel", nome: "Funil", versao: "1.2.0", altura: 230,
     resumo: "Etapas com número, % do total e % da etapa anterior.",
     tente: ["Clique numa etapa para selecioná-la (o resto perde destaque)", "Ctrl+clique para somar etapas", "Clique no fundo para limpar", "Botão direito abre o menu de contexto"]
   },
   {
-    key: "xpCompositeBars", nome: "Barras com composição", versao: "1.1.0", altura: 360,
+    key: "xpCompositeBars", nome: "Barras com composição", versao: "1.1.0", altura: 230,
     resumo: "Barras empilhadas por linha, com busca, ordenação e ranking de Pareto.",
     tente: ["Clique numa barra para selecionar a área", "Use a busca e a ordenação na barra de cima"]
   },
   {
-    key: "xpStageTable", nome: "Tabela por etapa", versao: "1.1.0", altura: 340,
+    key: "xpStageTable", nome: "Tabela por etapa", versao: "1.1.0", altura: 430, encaixa: true,
     resumo: "Composição, conversão e tempo de cada etapa, com busca e ordenação.",
     tente: ["Clique no título de uma coluna para ordenar", "Clique numa linha para selecioná-la"]
   },
   {
-    key: "xpSlaTable", nome: "Tabela de SLA", versao: "1.0.0", altura: 320,
+    key: "xpSlaTable", nome: "Tabela de SLA", versao: "1.0.0", altura: 380, encaixa: true,
     resumo: "Tempo típico (mediana) e o P90 por etapa, com a base e os casos acima hoje.",
     tente: ["Compare o típico com o \"90% saem até\": a diferença mostra a cauda longa"]
   },
   {
-    key: "xpHeatmap", nome: "Matriz de calor", versao: "1.2.0", altura: 360,
+    key: "xpHeatmap", nome: "Matriz de calor", versao: "1.2.0", altura: 500, encaixa: true,
     resumo: "Linhas × colunas com cor por volume e detalhe por coluna.",
     tente: ["Clique numa célula para selecioná-la", "Passe o mouse no ⓘ do cabeçalho"]
   },
   {
-    key: "xpMasterDetail", nome: "Etapa e motivos", versao: "1.0.0", altura: 340,
+    key: "xpMasterDetail", nome: "Etapa e motivos", versao: "1.0.0", altura: 420, encaixa: true,
     resumo: "Lista à esquerda; ao escolher um item, os mais frequentes aparecem à direita.",
     tente: ["Clique numa etapa da esquerda e veja os motivos mudarem"]
   },
   {
-    key: "xpGoalUsage", nome: "Consumo da meta", versao: "1.1.0", altura: 300,
+    key: "xpGoalUsage", nome: "Consumo da meta", versao: "1.1.0", altura: 200,
     resumo: "Régua do total contra a meta, repartida por item.",
     tente: ["Veja quanto cada etapa consome dos 45 dias de meta"]
   },
   {
-    key: "xpTrend", nome: "Evolução", versao: "1.0.0", altura: 360,
+    key: "xpTrend", nome: "Evolução", versao: "1.0.0", altura: 470, encaixa: true,
     resumo: "Linhas no tempo com troca de série e de granularidade.",
     tente: ["Troque entre as séries e entre dia, semana e mês na barra de cima"],
     objetos: {
@@ -65,32 +65,32 @@ const CATALOGO = [
     }
   },
   {
-    key: "xpSlicer", nome: "Segmentação", versao: "2.2.0", altura: 150, livre: true,
+    key: "xpSlicer", nome: "Segmentação", versao: "2.2.0", altura: 170, livre: true, largura: 400,
     resumo: "Caixa com lista suspensa, janela de seleção ou lista aberta. Filtra o relatório de verdade.",
     tente: ["Abra a caixa e marque uma ou mais áreas", "O filtro vale para todos os outros visuais desta página", "No painel de formatação, troque o modo para \"janela\" ou \"lista\""]
   },
   {
-    key: "xpPeriod", nome: "Período", versao: "2.2.0", altura: 150, livre: true,
+    key: "xpPeriod", nome: "Período", versao: "2.2.0", altura: 170, livre: true, largura: 400,
     resumo: "Calendário suspenso com atalhos, De/Até digitável e intervalo em dois cliques.",
     tente: ["Abra o calendário e escolha um atalho, ou clique em duas datas", "O período filtra os outros visuais desta página"]
   },
   {
-    key: "xpOrg", nome: "Organograma", versao: "1.0.0", altura: 150, livre: true,
+    key: "xpOrg", nome: "Organograma", versao: "1.0.0", altura: 170, livre: true, largura: 400,
     resumo: "Segmentação em árvore por níveis, com busca em qualquer nível.",
     tente: ["Abra a árvore e escolha uma diretoria ou um time", "Busque por um nome de qualquer nível"]
   },
   {
-    key: "xpNominal", nome: "Tabela nominal", versao: "1.1.0", altura: 420,
+    key: "xpNominal", nome: "Tabela nominal", versao: "1.1.0", altura: 620, encaixa: true,
     resumo: "Lista com link, situação, dias com alerta, busca, botões por segmento e \"Mostrar mais\".",
     tente: ["Busque por um nome", "Clique nos botões de situação para filtrar a lista", "Ordene pela coluna de dias", "\"Abrir ↗\" mostraria o registro de origem"]
   },
   {
-    key: "xpBaseNominal", nome: "Base nominal", versao: "1.1.0", altura: 440,
+    key: "xpBaseNominal", nome: "Base nominal", versao: "1.1.0", altura: 640, encaixa: true,
     resumo: "Números clicáveis que trocam a base da lista, com colunas por base e exportação.",
     tente: ["Clique num dos números do topo para trocar a base da lista", "\"⤓ Exportar\" baixa um CSV de verdade"]
   },
   {
-    key: "xpDetail", nome: "Detalhe nominal", versao: "1.0.1", altura: 420,
+    key: "xpDetail", nome: "Detalhe nominal", versao: "1.0.1", altura: 620, encaixa: true,
     resumo: "Página de detalhamento: abas por situação, busca e exportação em CSV.",
     tente: ["Troque de aba", "Busque por um nome ou um motivo", "\"⤓ Exportar CSV\" baixa a aba inteira"]
   }
@@ -291,27 +291,29 @@ function abrir(indice) {
   cabecalho.appendChild(el("span", "pv-tag", "v" + meta.versao));
   painel.appendChild(cabecalho);
 
-  const corpo = el("div", "pv-corpo");
+  // O visual ocupa a largura inteira: é ele o assunto da página.
+  const canvas = el("div", "pv-canvas" + (meta.livre ? " pv-canvas--livre" : ""));
+  if (meta.encaixa) canvas.style.height = meta.altura + "px";
+  else canvas.style.minHeight = meta.altura + "px";
+  if (meta.largura) canvas.style.maxWidth = meta.largura + "px";
+  painel.appendChild(canvas);
+
+  const sob = el("div", "pv-sob");
   const esquerda = el("div", "pv-esq");
   const direita = el("aside", "pv-dir");
-  corpo.append(esquerda, direita);
-  painel.appendChild(corpo);
+  sob.append(esquerda, direita);
+  painel.appendChild(sob);
 
-  const canvas = el("div", "pv-canvas" + (meta.livre ? " pv-canvas--livre" : ""));
-  canvas.style.minHeight = meta.altura + "px";
-  if (!meta.livre) canvas.style.height = meta.altura + "px";
-  esquerda.appendChild(canvas);
-
+  esquerda.appendChild(el("h3", "pv-h3", "Experimente"));
   const dicas = el("ul", "pv-dicas");
   for (const t of meta.tente) dicas.appendChild(el("li", null, t));
-  esquerda.appendChild(el("h3", "pv-h3", "Experimente"));
   esquerda.appendChild(dicas);
 
-  direita.appendChild(el("h3", "pv-h3", "O que o visual devolve ao relatório"));
+  esquerda.appendChild(el("h3", "pv-h3", "O que o visual devolve ao relatório"));
   const log = el("ul", "pv-log");
-  const vazio = el("li", "pv-log__v", "Interaja com o visual ao lado.");
+  const vazio = el("li", "pv-log__v", "Interaja com o visual acima.");
   log.appendChild(vazio);
-  direita.appendChild(log);
+  esquerda.appendChild(log);
 
   const registro = (tipo, texto) => { if (vazio.parentNode) vazio.remove(); registroDe(log)(tipo, texto); };
 
@@ -319,16 +321,16 @@ function abrir(indice) {
   estado.montados.push(montagem);
   atual = montagem;
 
+  direita.appendChild(el("h3", "pv-h3", "Painel de formatação"));
+  direita.appendChild(el("p", "pv-nota", "As mesmas opções que aparecem no Power BI, lidas do próprio visual."));
+  const formatacao = el("div", "pv-fmt");
+  direita.appendChild(formatacao);
+
   const acoes = el("div", "pv-acoes");
   const reset = el("button", "pv-btn", "Voltar ao padrão");
   reset.type = "button";
   reset.addEventListener("click", () => { montagem.limpar(); construirPainel(montagem, formatacao); });
   acoes.appendChild(reset);
-
-  direita.appendChild(el("h3", "pv-h3", "Painel de formatação"));
-  direita.appendChild(el("p", "pv-nota", "As mesmas opções que aparecem no Power BI, lidas do próprio visual."));
-  const formatacao = el("div", "pv-fmt");
-  direita.appendChild(formatacao);
   direita.appendChild(acoes);
   construirPainel(montagem, formatacao);
 
