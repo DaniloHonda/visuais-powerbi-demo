@@ -7,7 +7,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-// Repositório da biblioteca de visuais (visuals/<nome>/src + style), ao lado desta pasta.
 const REPO = path.resolve(HERE, "..", "Visuais_PBI");
 const SRC = path.join(REPO, "visuals");
 const COPY = path.join(HERE, ".src");
@@ -20,7 +19,9 @@ function generic(text) {
   return text
     .replace(/xp-/g, "pv-")
     .replace(/pela XP/g, "pela empresa")
-    .replace(/visuais XP/g, "visuais");
+    .replace(/visuais XP/g, "visuais")
+    // O nome do sistema de origem não interessa numa demonstração genérica.
+    .replace(/"Greenhouse"/g, '"Registro"');
 }
 
 function copyTree(from, to) {
