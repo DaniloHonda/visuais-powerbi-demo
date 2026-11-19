@@ -8,6 +8,9 @@
   --realce: #0f6f76;
   --realce-leve: #e4f1f1;
   --sombra: 0 1px 2px rgba(16, 24, 40, .06), 0 6px 16px rgba(16, 24, 40, .05);
+  --aviso: #8a5a00;
+  --aviso-fundo: #fdf5e6;
+  --aviso-linha: #eedcb0;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -19,6 +22,9 @@
     --realce: #5fd0d8;
     --realce-leve: #15323a;
     --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 6px 20px rgba(0, 0, 0, .35);
+    --aviso: #e9bc6b;
+    --aviso-fundo: #2a2416;
+    --aviso-linha: #4b3d20;
   }
 }
 :root[data-theme="dark"] {
@@ -30,6 +36,9 @@
   --realce: #5fd0d8;
   --realce-leve: #15323a;
   --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 6px 20px rgba(0, 0, 0, .35);
+  --aviso: #e9bc6b;
+  --aviso-fundo: #2a2416;
+  --aviso-linha: #4b3d20;
 }
 
 * { box-sizing: border-box; }
@@ -65,6 +74,32 @@ button { font: inherit; }
   padding: 8px 12px;
   font-size: .88rem;
 }
+/* Aviso de dados fictícios: fica sempre visível no topo. */
+.pv-aviso {
+  max-width: 1500px;
+  margin: 12px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+  background: var(--aviso-fundo);
+  border: 1px solid var(--aviso-linha);
+  border-left: 4px solid var(--aviso);
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: .88rem;
+}
+.pv-aviso b { color: var(--aviso); }
+.pv-aviso span { color: var(--fraco); }
+
+/* Repetido junto do visual, para quem chega direto numa aba. */
+.pv-legenda {
+  margin: 8px 2px 0;
+  font-size: .78rem;
+  color: var(--fraco);
+  text-align: right;
+}
+
 .pv-filtro[hidden] { display: none; }
 .pv-filtro b { color: var(--realce); }
 .pv-filtro button {

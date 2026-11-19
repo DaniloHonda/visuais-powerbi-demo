@@ -297,6 +297,9 @@ function abrir(indice) {
   else canvas.style.minHeight = meta.altura + "px";
   if (meta.largura) canvas.style.maxWidth = meta.largura + "px";
   painel.appendChild(canvas);
+  const legenda = el("p", "pv-legenda", "Dados fictícios: pessoas, vagas, datas e números inventados.");
+  if (meta.largura) legenda.style.maxWidth = meta.largura + "px";
+  painel.appendChild(legenda);
 
   const sob = el("div", "pv-sob");
   const esquerda = el("div", "pv-esq");
